@@ -9,12 +9,7 @@ exports.signup = catchAsync(async(req, res, next) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        confirmPassword: req.body.confirmPassword,
-        notifications: [],
-        userImage: req.body.userImage,
-        bio: req.body.bio,
-        location: req.body.location,
-        website: req.body.website
+        confirmPassword: req.body.confirmPassword
     });
 
     res.status(201).json({
@@ -43,19 +38,8 @@ exports.login = catchAsync(async(req, res, next) => {
         })
     }
 
-    // 3. Send token and res
-
     res.status(201).json({
         message: 'success',
         user
     })
 });
-
-exports.allUsers = catchAsync(async(req, res, next) => {
-    const users = await User.find()
-
-    res.status(200).json({
-        message: 'success',
-        users
-    })
-})
