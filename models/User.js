@@ -5,13 +5,13 @@ const bcrypt = require('bcryptjs')
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: [true, 'Molimo unesite vaše ime.'],
-        validate: [validator.isAlpha, 'Ime mora da sadrži samo slova.']
+        required: [true, 'Molimo unesite vaše ime.']
+        // validate: [validator.isAlpha, 'Ime mora da sadrži samo slova.']
     },
     lastName: {
         type: String,
-        required: [true, 'Molimo unesite vaše prezime.'],
-        validate: [validator.isAlpha, 'Prezime mora da sadrži samo slova.']
+        required: [true, 'Molimo unesite vaše prezime.']
+        // validate: [validator.isAlpha, 'Prezime mora da sadrži samo slova.']
     },
     username: {
         type: String,
