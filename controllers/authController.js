@@ -45,7 +45,7 @@ exports.login = catchAsync(async(req, res, next) => {
 
     // 3. Send token and res
 
-    res.status(200).json({
+    res.status(201).json({
         message: 'success',
         user
     })
