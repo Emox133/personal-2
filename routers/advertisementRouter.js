@@ -5,7 +5,7 @@ const advertisementController = require('../controllers/advertisementController'
 const router = express.Router()
 
 router.route('/')
-.get(advertisementController.getAllAdvertisements)
-.post(advertisementController.createAdvertisement)
+.get(authController.protectRoutes, advertisementController.getAllAdvertisements)
+.post(authController.protectRoutes, advertisementController.createAdvertisement)
 
 module.exports = router
