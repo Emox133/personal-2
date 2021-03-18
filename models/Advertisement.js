@@ -1,8 +1,14 @@
 const mongoose = require('mongoose')
 
 const advertisementsSchema = new mongoose.Schema({
+    creator: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: [true, 'Oglas mora imati kreatora.']
+    },
     logo: {
-        type: String
+        type: String,
+        default: 'https://res.cloudinary.com/ddyyhypik/image/upload/v1616069659/kpq7geldrkv0z2eodl1v.png'
     },
     name: {
         type: String,
