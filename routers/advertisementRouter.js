@@ -10,7 +10,7 @@ router.route('/')
 
 router.route('/:id')
 .get(authController.protectRoutes, advertisementController.getOneAdvertisement)
-.patch(authController.protectRoutes, advertisementController.updateAdvertisement)
+.patch(authController.protectRoutes, advertisementController.checkForLogo, advertisementController.updateAdvertisement)
 .delete(authController.protectRoutes, advertisementController.deleteAdvertisement)
 
 module.exports = router

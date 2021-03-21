@@ -41,6 +41,11 @@ const userSchema = new mongoose.Schema({
             },
             message: 'Lozinke se ne podudaraju.'
         }
+    },
+    cookiesAccepted: {
+        type: Boolean,
+        default: false,
+        select: false
     }
 })
 

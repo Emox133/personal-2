@@ -20,6 +20,8 @@ exports.getAllAdvertisements = catchAsync(async(req, res, next) => {
         return next(new AppError('Trenutno nema oglasa u bazi podataka.', 404))
     }
 
+    console.log(req.user)
+
     res.status(200).json({
         message: 'success',
         advertisements
@@ -80,6 +82,10 @@ exports.deleteAdvertisement = catchAsync(async (req, res, next) => {
 
 exports.updateAdvertisement = catchAsync(async (req, res, next) => {
     const allowedFields = filteredBody(req.body, 'name', 'location', 'category', 'description', 'website', 'employees')
+
+    if(req.files) {
+        allowedFields.logo = req.files.logo
+    }
 
     const updatedAdvertisement = await Advertisement.findOneAndUpdate({_id: req.params.id, creator: req.user._id}, allowedFields, {
         new: true,

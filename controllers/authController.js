@@ -5,12 +5,56 @@ const jwt = require('jsonwebtoken')
 const {promisify} = require('util')
 const signToken = require('../utils/signToken')
 
+const createSendToken = (user, statusCode, req, res) => {
+  const token = signToken(user._id);
+
+  res.cookie('jwt', token, {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
+  });
+
+  // Remove password from output
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    user
+  });
+};
+
+
+exports.getCurrentUser = catchAsync(async(req, res, next) => {
+    const user = await User.findOne({_id: req.user._id}).select('-__v +cookiesAccepted')
+
+    res.status(200).json({
+        message: 'success',
+        user
+    })
+})
+
+// PRIHVAĆANJE KOLAČIĆA
+exports.acceptCookies = catchAsync(async(req, res, next) => {
+    await User.findOneAndUpdate({_id: req.user._id}, {cookiesAccepted: true}, {
+        new: true
+    })
+
+    res.status(200).json({
+        message: 'success'
+    })
+})
+
 // Protection Route
 exports.protectRoutes = catchAsync(async(req, res, next) => {
     // 1) Get the token
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split` `[1]
+    } else if(req.cookie.jwt) {
+        token = req.cookie.jwt
     }
 
     if(!token) {
@@ -43,12 +87,7 @@ exports.signup = catchAsync(async(req, res, next) => {
     });
 
     // Sign token
-    const token = signToken(newUser._id)
-
-    res.status(201).json({
-        message: 'success',
-        token
-    })
+    createSendToken(newUser, 201, req, res)
 });
 
 //* Prijava
@@ -68,10 +107,14 @@ exports.login = catchAsync(async(req, res, next) => {
     }
 
     // 3) Sign token
-    const token = signToken(user._id)
-
-    res.status(201).json({
-        message: 'success',
-        token
-    })
+    createSendToken(user, 201, req, res)
 });
+
+// ODJAVA
+exports.logout = (req, res) => {
+    res.cookie('jwt', 'loggedout', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true
+    });
+    res.status(200).json({ status: 'success' });
+};
