@@ -9,6 +9,7 @@ const fileupload = require('express-fileupload')
 const os = require('os')
 
 app.use(cors())
+app.options('*', cors());
 app.use(express.json())
 
 app.use(fileupload({
