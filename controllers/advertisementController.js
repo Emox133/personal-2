@@ -20,8 +20,6 @@ exports.getAllAdvertisements = catchAsync(async(req, res, next) => {
         return next(new AppError('Trenutno nema oglasa u bazi podataka.', 404))
     }
 
-    console.log(req.user)
-
     res.status(200).json({
         message: 'success',
         advertisements
@@ -57,13 +55,14 @@ exports.createAdvertisement = catchAsync(async(req, res, next) => {
         creator: req.user._id,
         logo: req.files ? req.files.logo : req.body.logo,
         name: req.body.name,
-        createdAt: Date.now(),
-        expiresIn: new Date().toDateString(),
+        companyName: req.body.companyName,
+        companyEmail: req.body.companyEmail,
+        companyNumber: req.body.companyNumber,
+        expiresIn: req.body.expiresIn,
         location: req.body.location,
-        category: req.body.category,
+        positionsLeft: req.body.positionsLeft,
         description: req.body.description,
-        website: req.body.website,
-        employees: req.body.employees
+        website: req.body.website
     })
 
     res.status(201).json({
