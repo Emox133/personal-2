@@ -42,7 +42,7 @@ app.use(xss());
 app.use(compression());
 
 //* Routes
-app.use('/api/v1/oglasi', a);
+app.use('/api/v1/oglasi', advertisementRouter);
 app.use('/api/v1/users', usersRouter);
 
 //* All routes that do not exist
