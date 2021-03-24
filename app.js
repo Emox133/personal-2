@@ -1,49 +1,53 @@
-const express = require('express')
-const app = express()
-const userRouter = require('./routers/userRouter')
-const advertisementsRouter = require('./routers/advertisementRouter')
-const cors = require('cors');
-const globalErrorHandler = require('./controllers/errorController')
-const AppError = require('./utils/appError')
-const fileupload = require('express-fileupload')
-const os = require('os')
+const express = require('express');
+// const morgan = require('morgan');
+const cors = require('cors')
+const advertisementRouter = require('./routes/advertisementRouter');
+const usersRouter = require('./routes/userRoutes');
+const fileupload = require('express-fileupload');
+const os = require('os');
+const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
-const rateLimit = require('express-rate-limit');
-const cookieParser = require('cookie-parser');
-const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean');
-const compression = require('compression');
+const mongoSanitize = require('express-mongo-sanitize')
+const xss = require('xss-clean')
+const compression = require('compression')
 
-app.enable('trust proxy');
+const app = express();
 app.use(cors())
-// app.options('*', cors());
-app.use(helmet())
 
-const limiter = rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
-    message: 'Previše zahtjeva od ove IP adrese. Molimo pokušajte ponovo za jedan sat.'
-})
+app.use(helmet());
 
-app.use('/api', limiter)
-app.use(cookieParser())
+app.use(express.json());
+
 app.use(fileupload({
     useTempFiles: true,
     tempFileDir: os.tmpdir()
-}))
-app.use(mongoSanitize())
-app.use(xss())
-app.use(compression())
+}));
 
-app.use(express.json())
+//? 3rd party middlewares
+// if(process.env.MODE === 'development') {
+    //     app.use(morgan('dev'));
+// }
+const limiter = rateLimit({
+    max: 300,
+    windowMs: 60 * 60 * 1000,
+    message: 'Prekoračili ste limit. Pokušajte ponovo za 1h.'
+})
 
-app.use('/api/v1/users', userRouter)
-app.use('/api/v1/oglasi', advertisementsRouter)
+app.use('/api', limiter);
 
+app.use(mongoSanitize());
+
+app.use(xss());
+
+app.use(compression());
+
+//* Routes
+app.use('/api/v1/oglasi', a);
+app.use('/api/v1/users', usersRouter);
+
+//* All routes that do not exist
 app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
-
-app.use(globalErrorHandler)
-
-module.exports = app
+    res.status(404).json({
+        message: `The requested route ${req.originalUrl} is not found.`
+    })
+}); 
