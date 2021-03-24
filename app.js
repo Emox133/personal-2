@@ -12,9 +12,14 @@ const compression = require('compression')
 
 const app = express();
 app.use(cors())
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 app.use(helmet());
-
 app.use(express.json());
 
 app.use(fileupload({
@@ -29,11 +34,8 @@ const limiter = rateLimit({
 })
 
 app.use('/api', limiter);
-
 app.use(mongoSanitize());
-
 app.use(xss());
-
 app.use(compression());
 
 //* Routes
