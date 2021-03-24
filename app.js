@@ -1,8 +1,7 @@
 const express = require('express');
-// const morgan = require('morgan');
 const cors = require('cors')
-const advertisementRouter = require('./routes/advertisementRouter');
-const usersRouter = require('./routes/userRoutes');
+const advertisementRouter = require('./routers/advertisementRouter');
+const usersRouter = require('./routers/userRouter');
 const fileupload = require('express-fileupload');
 const os = require('os');
 const rateLimit = require('express-rate-limit')
@@ -23,10 +22,6 @@ app.use(fileupload({
     tempFileDir: os.tmpdir()
 }));
 
-//? 3rd party middlewares
-// if(process.env.MODE === 'development') {
-    //     app.use(morgan('dev'));
-// }
 const limiter = rateLimit({
     max: 300,
     windowMs: 60 * 60 * 1000,
