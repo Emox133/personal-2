@@ -14,9 +14,9 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
 
-app.use(cors())
-app.options('*', cors());
 app.enable('trust proxy');
+app.use(cors())
+// app.options('*', cors());
 app.use(helmet())
 
 const limiter = rateLimit({
