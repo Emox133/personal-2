@@ -46,3 +46,5 @@ app.all('*', (req, res, next) => {
         message: `The requested route ${req.originalUrl} is not found.`
     })
 }); 
+
+module.exports = app
