@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors')
+const globalErrorHandler = require('./controllers/errorController')
 const advertisementRouter = require('./routers/advertisementRouter');
 const usersRouter = require('./routers/userRouter');
 const fileupload = require('express-fileupload');
@@ -42,5 +43,7 @@ app.all('*', (req, res, next) => {
         message: `The requested route ${req.originalUrl} is not found.`
     })
 }); 
+
+app.use(globalErrorHandler)
 
 module.exports = app
