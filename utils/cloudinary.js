@@ -1,4 +1,4 @@
-const AppError = require('./../utils/AppError');
+const AppError = require('./appError')
 
 exports.uploadProfileImage = req => {
     const ext = req.files.photo.mimetype.split('/')[1];
