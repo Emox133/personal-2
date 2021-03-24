@@ -13,7 +13,7 @@ const compression = require('compression')
 const app = express();
 app.use(cors())
 
-app.use(helmet());
+// app.use(helmet());
 app.use(express.json());
 
 app.use(fileupload({
@@ -21,16 +21,16 @@ app.use(fileupload({
     tempFileDir: os.tmpdir()
 }));
 
-const limiter = rateLimit({
-    max: 300,
-    windowMs: 60 * 60 * 1000,
-    message: 'Prekoračili ste limit. Pokušajte ponovo za 1h.'
-})
+// const limiter = rateLimit({
+//     max: 300,
+//     windowMs: 60 * 60 * 1000,
+//     message: 'Prekoračili ste limit. Pokušajte ponovo za 1h.'
+// })
 
-app.use('/api', limiter);
-app.use(mongoSanitize());
-app.use(xss());
-app.use(compression());
+// app.use('/api', limiter);
+// app.use(mongoSanitize());
+// app.use(xss());
+// app.use(compression());
 
 //* Routes
 app.use('/api/v1/oglasi', advertisementRouter);
