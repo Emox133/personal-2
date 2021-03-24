@@ -13,8 +13,8 @@ const compression = require('compression')
 
 const app = express();
 app.use(cors())
-
 app.use(helmet());
+
 app.use(express.json());
 
 app.use(fileupload({
