@@ -1,4 +1,5 @@
 const catchAsync = require('../utils/catchAsync')
+const {promisify} = require('util')
 const Advertisement = require('../models/Advertisement')
 const AppError = require('../utils/appError')
 const cloudinary = require('cloudinary').v2
@@ -40,12 +41,12 @@ exports.getOneAdvertisement = catchAsync(async(req, res, next) => {
 })
 
 exports.checkForLogo = catchAsync(async (req, res, next) => {
-    console.log(req.files.joinedTemp)
     if(req.files) {
         uploadProfileImage(req)
-
+        console.log(req.files.joinedTemp)
         await cloudinary.uploader.upload(req.files.joinedTemp, (err, img) => {
             if(img) {
+                console.log(img)
                 req.files.logo = img.secure_url
             }
             if(err) {
