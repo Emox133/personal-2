@@ -40,6 +40,7 @@ exports.getOneAdvertisement = catchAsync(async(req, res, next) => {
 })
 
 exports.checkForLogo = catchAsync(async (req, res, next) => {
+    console.log(req.files)
     if(req.files) {
         console.log(req.files)
         uploadProfileImage(req)
