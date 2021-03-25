@@ -45,7 +45,8 @@ exports.checkForLogo = catchAsync(async (req, res, next) => {
         uploadProfileImage(req)
 
         await cloudinary.uploader.upload(req.files.joinedTemp, (err, img) => {
-            req.files.logo = img.secure_url
+            // req.files.logo = img.secure_url
+            console.log(img)
             if(err) {
                 console.log(err)
             }
