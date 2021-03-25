@@ -43,12 +43,12 @@ exports.checkForLogo = catchAsync(async (req, res, next) => {
     if(req.files) {
         // console.log(Object.keys(req.files)[0])
         console.log(req.files.photo)
-        setTimeout(() => {
-            uploadProfileImage(req)
-        }, 1000)
+        uploadProfileImage(req)
 
         await cloudinary.uploader.upload(req.files.joinedTemp, (err, img) => {
-            req.files.logo = img.secure_url
+            if(img) {
+                req.files.logo = img.secure_url
+            }
             if(err) {
                 console.log(err)
             }
