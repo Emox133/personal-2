@@ -57,7 +57,7 @@ exports.checkForLogo = catchAsync(async (req, res, next) => {
 exports.createAdvertisement = catchAsync(async(req, res, next) => {
     const newAdvertisement = await Advertisement.create({
         creator: req.user._id,
-        // logo: req.files ? req.files.logo : req.body.logo,
+        logo: req.files ? req.files.logo : req.body.logo,
         name: req.body.name,
         companyName: req.body.companyName,
         companyEmail: req.body.companyEmail,
