@@ -12,10 +12,10 @@ exports.uploadProfileImage = req => {
         return next(new AppError('Please provide an image type with jpg or png file extension.', 400));
     } 
 
-    let temp = req.files.photo.tempFilePath.split('\\')
+    let temp = req.files.photo.tempFilePath.split('/')
     let index = temp.length - 1;
     temp.splice(index, 1, req.files.filename)
-    let joinedTemp = temp.join('\\')
+    let joinedTemp = temp.join('/')
 
     req.files.photo.mv(joinedTemp +filename, (err) => {
         if(err) console.log(err)
