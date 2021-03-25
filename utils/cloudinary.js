@@ -1,4 +1,4 @@
-const AppError = require('./../utils/AppError');
+const AppError = require('./appError');
 const cloudinary = require('cloudinary').v2
 
 exports.uploadProfileImage = req => {
