@@ -41,7 +41,7 @@ exports.getOneAdvertisement = catchAsync(async(req, res, next) => {
 
 exports.checkForLogo = catchAsync(async (req, res, next) => {
     if(req.files) {
-        console.log(req.files)
+        console.log(Object.keys(req.files)[0])
         uploadProfileImage(req)
 
         await cloudinary.uploader.upload(req.files.joinedTemp, (err, img) => {
