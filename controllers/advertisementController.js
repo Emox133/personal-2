@@ -71,8 +71,6 @@ exports.createAdvertisement = catchAsync(async(req, res, next) => {
         website: req.body.website
     })
 
-    console.log(req.files)
-
     res.status(201).json({
         message: 'success',
         newAdvertisement

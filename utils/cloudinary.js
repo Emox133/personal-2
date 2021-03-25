@@ -1,6 +1,7 @@
 const AppError = require('./appError')
 
 exports.uploadProfileImage = req => {
+    // console.log(req.files)
     const ext = req.files.photo.mimetype.split('/')[1];
     const filename = `user-${req.user._id}-${new Date().getTime() * 1000}.${ext}`;
     
