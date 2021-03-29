@@ -5,7 +5,7 @@ const advertisementController = require('../controllers/advertisementController'
 const router = express.Router()
 
 router.route('/')
-.get(authController.protectRoutes, advertisementController.getAllAdvertisements)
+.get(advertisementController.getAllAdvertisements)
 .post(authController.protectRoutes, advertisementController.checkForLogo, advertisementController.createAdvertisement)
 
 router.route('/:id')
