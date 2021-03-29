@@ -9,7 +9,7 @@ router.route('/')
 .post(authController.protectRoutes, advertisementController.checkForLogo, advertisementController.createAdvertisement)
 
 router.route('/:id')
-.get(authController.protectRoutes, advertisementController.getOneAdvertisement)
+.get(advertisementController.getOneAdvertisement)
 .patch(authController.protectRoutes, advertisementController.checkForLogo, advertisementController.updateAdvertisement)
 .delete(authController.protectRoutes, advertisementController.deleteAdvertisement)
 
