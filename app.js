@@ -23,7 +23,7 @@ app.use(fileupload({
 }));
 
 const limiter = rateLimit({
-    max: 300,
+    max: 600,
     windowMs: 60 * 60 * 1000,
     message: 'Prekoračili ste limit. Pokušajte ponovo za 1h.'
 })
