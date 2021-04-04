@@ -65,7 +65,7 @@ exports.createAdvertisement = catchAsync(async(req, res, next) => {
         companyName: req.body.companyName,
         companyEmail: req.body.companyEmail,
         companyNumber: req.body.companyNumber,
-        expiresIn: req.body.expiresIn,
+        expiresIn: new Date(req.body.expiresIn),
         location: req.body.location,
         positionsLeft: req.body.positionsLeft,
         description: req.body.description,

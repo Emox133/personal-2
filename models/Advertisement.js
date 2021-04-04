@@ -32,6 +32,7 @@ const advertisementsSchema = new mongoose.Schema({
     },
     expiresIn: {
         type: Date,
+        // default: new Date().toLocaleDateString('BA', {month: 'long', day:'numeric', year: 'numeric'}),
         required: [true, 'Molimo vas unesite datum kada oglas ističe.']
     },
     location: {
@@ -49,6 +50,9 @@ const advertisementsSchema = new mongoose.Schema({
     },
     website: String
 })
+
+// TTL INDEX
+advertisementsSchema.index({"expiresIn": 1}, {expireAfterSeconds: 0})
 
 const Advertisement = mongoose.model('Advertisement', advertisementsSchema)
 
