@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 const advertisementsSchema = new mongoose.Schema({
     creator: {
@@ -13,6 +14,7 @@ const advertisementsSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Molimo vas unesite ime oglasa.']
+        // validate: [validator.isAlpha, 'Slova poput [Č, Ć, Š, Ž, DŽ, Đ] nisu dozvoljena.']
     },
     companyName: {
         type: String,

@@ -4,6 +4,7 @@ const Advertisement = require('../models/Advertisement')
 const AppError = require('../utils/appError')
 const cloudinary = require('cloudinary').v2
 const {uploadProfileImage} = require('../utils/cloudinary')
+const Diacritics = require('diacritic')
 
 // Choose which fields are allowed to be updated
 const filteredBody = (obj, ...allowedFields) => {
@@ -61,7 +62,7 @@ exports.createAdvertisement = catchAsync(async(req, res, next) => {
     const newAdvertisement = await Advertisement.create({
         creator: req.user._id,
         logo: req.files ? req.files.logo : req.body.logo,
-        name: req.body.name,
+        name: Diacritics.clean(req.body.name),
         companyName: req.body.companyName,
         companyEmail: req.body.companyEmail,
         companyNumber: req.body.companyNumber,
