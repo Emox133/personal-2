@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: [true, 'Molimo vas izaberite korisničko ime.'],
-        unique: true,
-        validate: [validator.isAlphanumeric, 'Korisničko ime mora sadržavati samo slova i brojeve.']
+        // validate: [validator.isAlphanumeric, 'Korisničko ime mora sadržavati samo slova i brojeve.']
     },
     email: {
         type: String,
