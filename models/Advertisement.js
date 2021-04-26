@@ -9,7 +9,7 @@ const advertisementsSchema = new mongoose.Schema({
     },
     logo: {
         type: String,
-        default: 'https://res.cloudinary.com/ddyyhypik/image/upload/v1617001994/xcuvhnugbpkgvgvkihv6.jpg'
+        default: 'https://res.cloudinary.com/ddyyhypik/image/upload/v1619433181/logo-6_xetpdy.png'
     },
     name: {
         type: String,
