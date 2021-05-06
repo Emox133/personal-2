@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const app = require('./app')
 const cloudinary = require('cloudinary').v2
+const wakeUpDyno = require('./utils/wakeUpDyno')
 
 dotenv.config({
     path: './config.env'
@@ -25,4 +26,5 @@ cloudinary.config({
 const port = process.env.PORT || 3000
 const server = app.listen(port, () => {
     console.log(`server started on port ${port}`)
+    wakeUpDyno(process.env.APP_URL)
 })
