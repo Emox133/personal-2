@@ -9,7 +9,6 @@ router.route('/logout').get(authController.logout)
 
 router.route('/me').get(authController.protectRoutes, authController.getCurrentUser)
 
-// COOCKIE ROUTES
 router.route('/cookies').get(authController.protectRoutes, authController.acceptCookies)
 
 module.exports = router
